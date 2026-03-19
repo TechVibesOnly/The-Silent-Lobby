@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Syne", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-gold: #C9A84C;
+  --color-gold-muted: rgba(201, 168, 76, 0.3);
+  --color-bg-dark: #0A0C12;
+  --color-glass: rgba(16, 18, 28, 0.7);
+}
+
+@layer base {
+  body {
+    @apply bg-bg-dark text-white font-sans selection:bg-gold selection:text-black;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 50;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl bg-glass border border-white/10 rounded-2xl;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #C9A84C 0%, #A68A3D 100%);
+  }
+}
+
+/* Custom Cursor Styles */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease;
+}
+
+.custom-cursor.hovering {
+  transform: scale(4);
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
